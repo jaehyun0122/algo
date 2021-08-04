@@ -18,8 +18,6 @@ public class 농장물 {
 			}
 			
 			int center = size/2;
-			int dist = size/2 ; //거리가 작거나 같은거 수확
-			//center 까지의 합계
 			int sum = 0;
 			for(int i=0; i<=center; i++) {
 				for(int j=center-i; j<=center+i; j++) {
