@@ -1,0 +1,69 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+
+public class swea_하나로 {
+
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(in.readLine());
+		int T = Integer.parseInt(st.nextToken());
+		
+		for(int tc=1; tc<=T; tc++) {
+			int N = Integer.parseInt(in.readLine());
+			
+			long[][] adjMatrix = new long[N][N];
+			boolean[] visited = new boolean[N];
+			long[] dist = new long[N];
+			long[] x = new long[N];
+			long[] y = new long[N];
+			// x, y 값 입력
+			st = new StringTokenizer(in.readLine());
+			for(int i=0; i<N; i++) {
+				x[i] = Integer.parseInt(st.nextToken());
+			}
+			st = new StringTokenizer(in.readLine());
+			for(int i=0; i<N; i++) {
+				y[i] = Integer.parseInt(st.nextToken());
+			}
+			// 세율 E
+			st = new StringTokenizer(in.readLine());
+			double E = Double.parseDouble(st.nextToken());
+			
+			for(int i=0; i<N; i++) {
+				for(int j=0; j<N; j++) {
+					long x_sub = x[i] - x[j];
+					long y_sub = y[i] - y[j];
+					adjMatrix[i][j] =((long)Math.pow(x_sub,2) +(long)Math.pow(y_sub,2));
+				}
+			}
+			Arrays.fill(dist, Long.MAX_VALUE);
+			dist[0] = 0;
+			long ans = 0;
+			for (int i = 0; i < N; i++) {
+				int cur = -1;
+				long min = Long.MAX_VALUE;
+				for (int j = 0; j < N; j++) {
+					if(!visited[j] && min>dist[j]) {
+						min = dist[j];
+						cur= j;
+					}
+				}
+				if(cur == -1) break;
+				visited[cur] = true;
+				ans += min; 
+				
+				for (int j = 0; j < N; j++) {
+					if(!visited[j] &&  adjMatrix[cur][j] != 0 && adjMatrix[cur][j]<dist[j]) {
+						dist[j] = adjMatrix[cur][j];
+					}
+				}
+			}
+			double cost = ans*E;
+			System.out.println("#"+tc+" " +Math.round(cost));
+		}
+	}
+
+}
