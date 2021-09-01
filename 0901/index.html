@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="main.css">
+  <title>월드컵</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-sm bg-light navbar-light shadow">
+    <!-- Brand -->
+    <a class="navbar-brand" href="index.html">월드컵</a>
+
+    <!-- Links -->
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="https://map.naver.com/v5/search/%EC%9D%8C%EC%8B%9D%EC%A0%90">주변 음식점</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+          href="https://map.naver.com/v5/search/%EB%84%A4%EC%9D%B4%EB%B2%84%20%EC%9D%8C%EC%8B%9D%20%EB%B0%B0%EB%8B%AC">주변
+          배달 가능한 음식점</a>
+      </li>
+
+      <!-- Dropdown -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="index.html" id="navbardrop" data-toggle="dropdown">
+          월드컵 메뉴 선택
+        </a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="food.html?0">음식</a>
+          <a class="dropdown-item" href="food.html?1">아이스크림</a>
+          <a class="dropdown-item" href="food.html?2">과자</a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <center>
+      <img src="mainImg.gif" alt="">
+      <p style="text-align: center;">나의 최애 음식은?</p>
+    </center>
+  </div>
+
+  <!-- 하단 Footer Start  -->
+  <div class="container">
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+      <div class="col-md-4 d-flex align-items-center">
+        <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+          <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
+        </a>
+        <span class="text-muted">
+          <a href="https://ssafy.com">&copy; 2021 SSAFY, 광주 4반</a>
+        </span>
+      </div>
+
+      <ul class="nav col-md-8 justify-content-end">
+        <li>김일환</li>
+        <li>박소희</li>
+        <li>이승현</li>
+        <li>장소명</li>
+        <li>정재현</li>
+      </ul>
+    </footer>
+  </div>
+  <!-- 하단 Footer End  -->
+</body>
+
+</html>
