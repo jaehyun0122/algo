@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Happy House</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/custom.js"></script>
+        <script type="text/javascript" src="js/hangjungdong.js"></script>
+        <script>
+            // officeAddress의 주소를 이용하여 geocoding으로 lat, lng 얻어온 후 marker
+            $(document).on("click", ".dropdown-item.cafe_office", function () {
+                var selOffice = $(this).text();
+                $("#officeBtn").text(selOffice);
+                var officeAddr = officeAddress[selOffice];
+
+                $.get("https://maps.googleapis.com/maps/api/geocode/json"
+                    , {
+                        key: 'AIzaSyClX4krxkI4A5q3cP1YoM7L6vhvBStGebg', address: officeAddr
+                    }, function (data, status) {
+                        deleteMarkers();
+                        var officemarker = {
+                            coords: { lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng },
+                            iconImage: null,
+                            content: selOffice
+                        };
+                        console.log(officemarker);
+                        addMarker(officemarker);
+                    }
+                    , "json"
+                );//get
+            });
+    </script>
+    <!-- google map end -->
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <div>
+            <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+                <!--로그인 안됐을시 시작-->
+                <div id="unlogined_top" class="container-fluid row" style="position: fixed; top: 0; background-color: #2e3537; text-align: right;">
+                    <div class="right">
+                        <button type="button" class="btn btn-dark" onclick="location.href='user/signupForm.html'"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="16" fill="currentColor" class="bi bi-file-person-fill" viewBox="0 0 16 16">
+                            <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm-1 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm-3 4c2.623 0 4.146.826 5 1.755V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-1.245C3.854 11.825 5.377 11 8 11z"/>
+                            </svg>Sign Up</button>
+                      <div class="dropdown" style="display: inline;">
+                        <button type="button" class="btn btn-dark" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="margin-right: 250px;"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
+                          <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
+                          </svg>Login</button>   
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 280px; height: 295px; background-color: #2e3537;">
+                          <form>
+                            <div class="form-group">
+                              <label for="ID" style="color: white; ">아 이 디</label>
+                              <input type="text" class="form-control" id="ID" aria-describedby="emailHelp" name="ID">
+                            </div>
+                            <div class="form-group">
+                              <label for="PW" style="color: white; margin-top: 10px;">비밀번호</label>
+                              <input type="password" class="form-control" id="PW" placeholder="Password" name="PW">
+                            </div>
+                            <div  style="margin-top: 10px;">
+                            <button id="login_btn"type="submit" class="btn btn-light">로 그 인</button>
+                            </div>
+                            <div style="margin-top: 10px;">
+                            <button type="button" class="btn btn-dark">비밀번호 찾기</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <!--로그인 안됐을시 끝-->
+                <!--로그인 됐을시 시작-->
+                <div id="logined_top" class="container-fluid row" style="position: fixed; top: 0; background-color: #2e3537; text-align: right;">
+                  <div class="right">
+                      <button id="logout_btn" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="16" fill="currentColor" class="bi bi-file-person-fill" viewBox="0 0 16 16">
+                          <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm-1 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm-3 4c2.623 0 4.146.826 5 1.755V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-1.245C3.854 11.825 5.377 11 8 11z"/>
+                          </svg>Logout</button>
+                    <div class="dropdown" style="display: inline;">
+                      <button onclick="location.href = 'user/userView.html'" type="button" class="btn btn-dark" id="userInfo_btn" data-bs-toggle="dropdown" aria-expanded="false" style="margin-right: 250px;"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="16" fill="currentColor" class="bi bi-file-person-fill" viewBox="0 0 16 16">
+                        <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm-1 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm-3 4c2.623 0 4.146.826 5 1.755V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-1.245C3.854 11.825 5.377 11 8 11z"/>
+                        </svg>회원정보</button>
+                    </div>
+                  </div>
+              </div>
+                <!--로그인 됐을시 끝-->
+                <div class="container-fluid" style="margin-top: 2%;">
+                    <a class="navbar-brand" href="index.html"><p>Happy House</p></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                        Menu
+                        <i class="fas fa-bars ms-1"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarResponsive">
+                        <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                            <li class="nav-item"><a class="nav-link" href="notice/notice.html">공지 사항</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://news.google.com/topstories?hl=ko&gl=KR&ceid=KR:ko">오늘의 뉴스</a></li>
+                            <li class="nav-item"><a class="loginNav nav-link" href="#about" style="display: none;">자유글</a></li>
+                            <li class="nav-item"><a class="loginNav nav-link" href="#team" style="display: none;">주변탐방</a></li>
+                            <li class="nav-item"><a class="loginNav nav-link" href="#contact" style="display: none;">관심지역 설정</a></li>
+                            <li class="nav-item"><a class="loginNav nav-link" href="#contact" style="display: none;">관심지역 둘러보기</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <!-- HAPPY HOUSE-->
+        <header class="masthead">
+            <div class="container">
+                <h2 class="title" data-animation-effect="fadeIn" data-effect-delay="100"><strong>Happy House</strong></h2>
+                <p class="text-center" data-animation-effect="fadeIn" data-effect-delay="100">행복한 우리 집</p>
+            </div>
+        </header>
+
+        <!--시군구 선택-->
+        <div class="dark-bg section" >
+            <div class="container-fluid">
+              <!-- filters start -->
+              <div class="sorting-filters text-center mb-20 d-flex justify-content-center" style="float: left;">
+                <!-- <form class="form-inline" id="frm" action="apt.html"> -->
+                  <div class="form-group md">
+                    <select class="form-control" name="city" id="city">
+                      <option value="">시</option>
+                    </select>
+                  </div>
+                  <div class="form-group md-1">
+                    <select class="form-control" name="gu" id="gu">
+                      <option value="">구</option>
+                    </select>
+                  </div>
+                  <div class="form-group md-1">
+                    <select class="form-control" name="dong" id="dong">
+                      <option value="">동/읍/면</option>
+                    </select>
+                  </div>
+                <!-- </form> -->
+              </div>
+              <!-- filters end -->
+            </div>
+          </div>
+
+        <div id="map" style="width: 50%; height: 300px; margin: auto;" class="mb-3"></div>
+        <script defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClX4krxkI4A5q3cP1YoM7L6vhvBStGebg&callback=initMap"></script>
+        <script>
+            var multi = { lat: 37.5012743, lng: 127.039585 };
+            var map;
+            var markers = [];
+            var infoWindow;
+
+            function initMap() {
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: multi, zoom: 15
+                });
+
+                infoWindow = new google.maps.InfoWindow;
+
+                var multimarker = {
+                    coords: multi,
+                    content: '멀티캠퍼스(역삼)'
+                };
+                addMarker(multimarker);
+                infoWindow.setPosition(multi);
+                infoWindow.setContent('멀티캠퍼스.');
+                infoWindow.open(map);
+
+
+                // Geolocation
+                infoWindow = new google.maps.InfoWindow;
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        var pos = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+
+                        var mymarker = {
+                            coords: pos,
+                            content: '현재위치'
+                        };
+                        addMarker(mymarker);
+
+                        infoWindow.setPosition(pos);
+                        infoWindow.setContent('현재 나의 위치.');
+                        infoWindow.open(map);
+                        map.setCenter(pos);
+                    }, function () {
+                        handleLocationError(true, infoWindow, map.getCenter());
+                    });
+                } else {
+                    handleLocationError(false, infoWindow, map.getCenter());
+                }
+
+            }
+
+            function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+                infoWindow.setPosition(pos);
+                infoWindow.setContent(browserHasGeolocation ?
+                    'Error: Geolocation 서비스 실패.' :
+                    'Error: Geolocation을 지원하지 않는 브라우저.');
+                infoWindow.open(map);
+            }
+
+            function addMarker(props) {
+                const marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(parseFloat(props.coords.lat), parseFloat(props.coords.lng)),
+                    map: map
+                });
+                map.setCenter(marker.getPosition());
+                map.setZoom(15);
+
+                if (props.iconImage) {
+                    marker.setIcon(props.iconImage);
+                }
+
+                if (props.content) {
+                    infoWindow = new google.maps.InfoWindow({
+                        content: props.content
+                    });
+
+                }
+
+                marker.addListener('click', function () {
+                    map.setZoom(17);
+                    map.setCenter(marker.getPosition());
+                    bounceMarker(marker);
+                });
+                markers.push(marker);
+                setMapOnAll(map);
+            }
+
+            function bounceMarker(marker) {
+                if (marker.getAnimation() !== null) {
+                    marker.setAnimation(null);
+                } else {
+                    marker.setAnimation(google.maps.Animation.BOUNCE);
+                }
+            }
+
+            function deleteMarkers() {
+                clearMarkers();
+                markers = [];
+            }
+
+            function clearMarkers() {
+                setMapOnAll(null);
+            }
+
+            function setMapOnAll(map) {
+                for (let i = 0; i < markers.length; i++) {
+                    markers[i].setMap(map);
+                }
+            }
+        </script>
+        <!-- Google Map end -->
+       <!-- 지도 하단-->
+       <section class="page-section" id="services">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <img src="assets/img/sideAD.jpg" alt="">
+                </div>
+                <div class="col-md-4">
+                    <h4 class="my-3">주택 관련 기사</h4>
+                    <ul>
+                        <li><a href="https://www.yna.co.kr/view/AKR20210902165000002?input=1195m">KB국민은행, 주택담보·전세대출 변동금리 0.15%p 인상</a></li>
+                        <li><a href="https://newsis.com/view/?id=NISX20210903_0001571157&cID=10803&pID=14000">GH, 광명학온 공공주택지구 보상계획 공고</a></li>
+                        <li><a href="https://www.fnnews.com/news/202109020936178055">서울주택도시공사 “SH 시민주주 모십니다”</a></li>
+                        <li><a href="https://www.news1.kr/articles/?4423505">청주시, 신혼부부 주택자금 대출이자 연 100만원씩 지원</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h4 class="my-3">오늘의 뉴스</h4>
+                    <button type="button" class="btn btn-primary" style="float: right; margin: 20px;"> 보러가기</button>
+                </div>
+            </div>
+            </div>
+        </section>
+        
+        <!-- footer start (Add "dark" class to #footer in order to enable dark footer) -->
+      <!-- ================ -->
+      <footer id="footer" class="clearfix ">
+        <!-- .footer start -->
+        <!-- ================ -->
+        <div class="footer">
+          <div class="container">
+            <div class="footer-inner">
+              <div class="row">
+               <div class="col-md-1">
+                  <div class="footer-content">
+                    <img alt="" src="assets/img/logo.png"  width="150">
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="footer-content">
+                    <h2 class="title">Find Us</h2>
+                    <div class="separator-2"></div>
+                        <ul class="list-icons" style="list-style: none;">
+                        <li><i class="fa fa-map-marker pr-2 text-default"></i>(SSAFY) 서울시 강남구  테헤란로 멀티스퀘어</li>
+                        <li><i class="fa fa-phone pr-2 text-default"></i> 1544-9001</li>
+                        <li><a href="http://google.com/mail"><i class="fa fa-envelope-o pr-2"></i>admin@ssafy.com</a></li>
+                        </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- .footer end -->
+
+        <!-- .subfooter start -->
+        <!-- ================ -->
+        <div class="subfooter">
+          <div class="container">
+            <div class="subfooter-inner">
+              <div class="row">
+                <div class="col-lg-4 text-lg-start">Copyright &copy; SSAFY. All rights reserved.</div>
+                    <div class="col-lg-4 my-3 my-lg-0">
+                    </div>
+                    <div class="col-lg-4 text-lg-end">
+                        <a class="link-dark text-decoration-none me-3" href="#!">박소희</a>
+                        <a class="link-dark text-decoration-none me-3" href="#!">이승현</a>
+                        <a class="link-dark text-decoration-none me-3" href="#!">정재현</a>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <!-- .subfooter end -->
+      </footer>
+      <!-- footer end -->
+        
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </body>
+</html>
