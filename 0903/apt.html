@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Happy House</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css\styles.css" rel="stylesheet" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/custom.js"></script>
+        <script type="text/javascript" src="js/hangjungdong.js"></script>
+        <script>
+              $(window).on('load', function(){
+
+                url = window.location.search.substr(1).split("&");
+                  let arr = [];
+                  $.each(url, function (index, i) {
+                    temp = i.split("=");
+                    arr[index] = temp[1];
+                    
+                  })
+
+                  let cg = arr[0]+arr[1];
+                  let dong = (decodeURI(arr[2]));
+
+              let ServiceKey = "cMNzd5LEn+3QNE9shWdqTMCHnqrGROzaff0iM4kdK6salu5G+w3bWzae7GHAM6ZN4EvuR8/6jK3l7ehfF0izPw==";
+              let LAWD_CD = cg;
+              let DEAL_YMD = "202101";
+                
+                $.ajax({
+                  url: 'http://openapi.molit.go.kr/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTradeDev',
+                  type: 'GET',
+                  dataType: 'xml',
+                  data: {
+                      "ServiceKey" : ServiceKey,
+                      "LAWD_CD" : LAWD_CD,
+                      "DEAL_YMD" : DEAL_YMD
+                  },
+                  success: function (response) {
+                      console.log(response);
+                      makeList(response);
+                      
+                  },
+                  error: function (xhr, status, msg) {
+                  console.log('상태값 : ' + status + ' Http에러메시지 : ' + msg);
+                  }
+              });
+                
+            function makeList(data) {
+              let aptlist = ``;
+              $(data).find('item').each(function () {
+                  aptlist += `<tr>
+                  <td>${$(this).find('아파트').text()}</td>
+                  <td>${$(this).find('거래금액').text()}</td>
+                  <td>${$(this).find('건축년도').text()}</td>
+                  <td>${$(this).find('년').text()}.${$(this).find('월').text()}.${$(this).find('일').text()}</td>
+                  </tr>`;
+
+                  $('#aptlistinfo').empty().append(aptlist);
+              });
+            }
+  
+              let cityCode = localStorage.getItem('city');
+              let changCityCode;
+              // city code값 도시이름으로 변경  geocoder에 검색할 때 써야됨
+              if(cityCode == '11') {
+                  changCityCode = "서울특별시";
+              }
+              else if(cityCode == '26') {
+                  changCityCode = "부산광역시";
+              } 
+              else if(cityCode == '27') {
+                  changCityCode = "대구광역시";
+              } 
+              else if(cityCode == '28') {
+                  changCityCode = "인천광역시";
+              } 
+              else if(cityCode == '29') {
+                  changCityCode = "광주광역시";
+              } 
+              else if(cityCode == '30') {
+                  changCityCode = "대전광역시";
+              } 
+              else if(cityCode == '31') {
+                  changCityCode = "울산광역시";
+              } 
+              else if(cityCode == '36') {
+                  changCityCode = "세종시";
+              } 
+              else if(cityCode == '41') {
+                  changCityCode = "경기도";
+              } 
+              else if(cityCode == '42') {
+                  changCityCode = "강원도";
+              } 
+              else if(cityCode == '43') {
+                  changCityCode = "충청북도";
+              } 
+              else if(cityCode == '44') {
+                  changCityCode = "충청남도";
+              } 
+              else if(cityCode == '45') {
+                  changCityCode = "전라북도";
+              } 
+              else if(cityCode == '46') {
+                  changCityCode = "전라남도";
+              } 
+              else if(cityCode == '47') {
+                  changCityCode = "경상북도";
+              } 
+              else if(cityCode == '48') {
+                  changCityCode = "경상남도";
+              } 
+              else if(cityCode == '50') {
+                  changCityCode = "제주특별자치도";
+              } 
+              localStorage.setItem('cityLast', changCityCode);
+              // localStorage.getItem('cityLast') + localStorage.getItem('dong');
+              localStorage.setItem('fullName', localStorage.getItem('cityLast') + localStorage.getItem('dongName'));
+              
+              console.log(localStorage.getItem('changCityCode') + localStorage.getItem('dong'));
+              })
+    </script>
+    <!-- google map end -->
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <div>
+            <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+                <!--로그인 안됐을시 시작-->
+                <div id="unlogined_top" class="container-fluid row" style="position: fixed; top: 0; background-color: #2e3537; text-align: right;">
+                  <div class="right">
+                      <button type="button" class="btn btn-dark" onclick="location.href='user/signupForm.html'"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="16" fill="currentColor" class="bi bi-file-person-fill" viewBox="0 0 16 16">
+                          <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm-1 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm-3 4c2.623 0 4.146.826 5 1.755V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-1.245C3.854 11.825 5.377 11 8 11z"/>
+                          </svg>Sign Up</button>
+                    <div class="dropdown" style="display: inline;">
+                      <button type="button" class="btn btn-dark" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="margin-right: 250px;"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
+                        <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
+                        </svg>Login</button>   
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 280px; height: 295px; background-color: #2e3537;">
+                        <form>
+                          <div class="form-group">
+                            <label for="ID" style="color: white; ">아 이 디</label>
+                            <input type="text" class="form-control" id="ID" aria-describedby="emailHelp" name="ID">
+                          </div>
+                          <div class="form-group">
+                            <label for="PW" style="color: white; margin-top: 10px;">비밀번호</label>
+                            <input type="password" class="form-control" id="PW" placeholder="Password" name="PW">
+                          </div>
+                          <div  style="margin-top: 10px;">
+                          <button id="login_btn"type="submit" class="btn btn-light">로 그 인</button>
+                          </div>
+                          <div style="margin-top: 10px;">
+                          <button type="button" class="btn btn-dark">비밀번호 찾기</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              <!--로그인 안됐을시 끝-->
+              <!--로그인 됐을시 시작-->
+              <div id="logined_top" class="container-fluid row" style="position: fixed; top: 0; background-color: #2e3537; text-align: right;">
+                <div class="right">
+                    <button id="logout_btn" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="16" fill="currentColor" class="bi bi-file-person-fill" viewBox="0 0 16 16">
+                        <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm-1 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm-3 4c2.623 0 4.146.826 5 1.755V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-1.245C3.854 11.825 5.377 11 8 11z"/>
+                        </svg>Logout</button>
+                  <div class="dropdown" style="display: inline;">
+                    <button onclick="location.href = 'user/userView.html'" type="button" class="btn btn-dark" id="userInfo_btn" data-bs-toggle="dropdown" aria-expanded="false" style="margin-right: 250px;"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="16" fill="currentColor" class="bi bi-file-person-fill" viewBox="0 0 16 16">
+                      <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm-1 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm-3 4c2.623 0 4.146.826 5 1.755V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-1.245C3.854 11.825 5.377 11 8 11z"/>
+                      </svg>회원정보</button>
+                  </div>
+                </div>
+            </div>
+              <!--로그인 됐을시 끝-->
+                <div class="container-fluid" style="margin-top: 2%;">
+                    <a class="navbar-brand" href="index.html"><p>Happy House</p></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                        Menu
+                        <i class="fas fa-bars ms-1"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarResponsive">
+                        <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                            <li class="nav-item"><a class="nav-link" href="../notice/notice.html">공지 사항</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://news.google.com/topstories?hl=ko&gl=KR&ceid=KR:ko">오늘의 뉴스</a></li>
+                            <li class="nav-item"><a class="loginNav nav-link" href="#about" style="display: none;">자유글</a></li>
+                            <li class="nav-item"><a class="loginNav nav-link" href="#team" style="display: none;">주변탐방</a></li>
+                            <li class="nav-item"><a class="loginNav nav-link" href="#contact" style="display: none;">관심지역 설정</a></li>
+                            <li class="nav-item"><a class="loginNav nav-link" href="#contact" style="display: none;">관심지역 둘러보기</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <!-- HAPPY HOUSE-->
+        <header class="masthead">
+            <div class="container">
+                <h2 class="title" data-animation-effect="fadeIn" data-effect-delay="100"><strong>Happy House</strong></h2>
+                <p class="text-center" data-animation-effect="fadeIn" data-effect-delay="100">행복한 우리 집</p>
+            </div>
+        </header>
+
+        <!--시군구 선택-->
+                <!--시군구 선택-->
+                <div class="dark-bg section">
+                  <div class="container-fluid">
+                    <!-- filters start -->
+                    <div class="sorting-filters text-center mb-20 d-flex justify-content-center">
+                      <form class="form-inline" id="frm" action="searchRecentHouseDeal.do">
+                        <div class="form-group md-3">
+                          <select class="form-control" name="city" id="city">
+                            <option value="">시</option>
+                          </select>
+                        </div>
+                        <div class="form-group md-1">
+                          <select class="form-control" name="gu" id="gu">
+                            <option value="">구</option>
+                          </select>
+                        </div>
+                        <div class="form-group md-1">
+                          <select class="form-control" name="dong" id="dong">
+                            <option value="">동/읍/면</option>
+                          </select>
+                        </div>
+                      </form>
+                    </div>
+                    <!-- filters end -->
+                  </div>
+                </div>
+          <!-- 시군구 선택 끝 -->
+
+          <!-- aptlistinfo -->
+
+          <div id="tablediv">
+            <table id="tableinfo" class="table table-striped table-bordered table-sm">
+              <caption>아파트 거래 정보</caption>
+              <thead id="tablehead">
+                <th>아파트명</th>
+                <th>거래금액</th>
+                <th>건축년도</th>
+                <th>거래년월</th>
+              </thead>
+                <tbody id="aptlistinfo">
+
+                </tbody>
+            </table>
+          </div>
+          <!-- aptlistinfo end -->
+
+        <div id="map" style="width: 50%; height: 300px; margin: auto;" class="mb-3"></div>
+        <script defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClX4krxkI4A5q3cP1YoM7L6vhvBStGebg&callback=initMap"></script>
+        <script>
+            var divdiv = $('#tableinfo');
+
+            divdiv.scrollTop = divdiv.scrollHeight;
+
+            function initMap() {
+            console.log('Map is initialized.');
+ 
+            /**
+             * 맵을 설정한다.
+             * 1번째 파라미터 : 구글 맵을 표시할 위치. 여기서는 #google-map
+             * 2번째 파라미터 : 맵 옵션.
+             *      ㄴ zoom : 맵 확대 정도
+             *      ㄴ center : 맵 중심 좌표 설정
+             *              ㄴ lat : 위도 (latitude)
+             *              ㄴ lng : 경도 (longitude)
+             */
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12.5,
+                center: {
+                    lat: -34.397,
+                    lng: 150.644
+                }
+            });
+ 
+            /**
+             * Google Geocoding. Google Map API에 포함되어 있다.
+             */
+            var geocoder = new google.maps.Geocoder();
+ 
+            //     // 여기서 실행
+            //     geocodeAddress(geocoder, map);
+            // });
+        
+            geocodeAddress(geocoder, map);
+          
+ 
+            /**
+             * geocodeAddress
+             * 
+             * 입력한 주소로 맵의 좌표를 바꾼다.
+             */
+            function geocodeAddress(geocoder, resultMap) {
+                console.log('geocodeAddress 함수 실행');
+ 
+                // 주소 설정
+              var address = localStorage.getItem('cityLast') + localStorage.getItem('dongName');
+              console.log('adress : '+address)
+
+                geocoder.geocode({'address': address}, function(result, status) {
+                    console.log(result);
+                    console.log(status);
+ 
+                    if (status === 'OK') {
+                        // 맵의 중심 좌표를 설정한다.
+                        resultMap.setCenter(result[0].geometry.location);
+                        // 맵의 확대 정도를 설정한다.
+                        resultMap.setZoom(15);
+                        // 맵 마커
+                        var marker = new google.maps.Marker({
+                            map: resultMap,
+                            position: result[0].geometry.location
+                        });
+ 
+                        // 위도
+                        console.log('위도(latitude) : ' + marker.position.lat());
+                        // 경도
+                        console.log('경도(longitude) : ' + marker.position.lng());
+                    } else {
+                        alert('지오코드가 다음의 이유로 성공하지 못했습니다 : ' + status);
+                    }
+                });
+            }
+        }
+
+        </script>
+        <!-- Google Map end -->
+        
+        <!-- footer start (Add "dark" class to #footer in order to enable dark footer) -->
+      <!-- ================ -->
+      <footer id="footer" class="clearfix ">
+        <!-- .footer start -->
+        <!-- ================ -->
+        <div class="footer">
+          <div class="container">
+            <div class="footer-inner">
+              <div class="row">
+               <div class="col-md-1">
+                  <div class="footer-content">
+                    <img alt="" src="assets/img/logo.png"  width="150">
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="footer-content">
+                    <h2 class="title">Find Us</h2>
+                    <div class="separator-2"></div>
+                        <ul class="list-icons" style="list-style: none;">
+                        <li><i class="fa fa-map-marker pr-2 text-default"></i>(SSAFY) 서울시 강남구  테헤란로 멀티스퀘어</li>
+                        <li><i class="fa fa-phone pr-2 text-default"></i> 1544-9001</li>
+                        <li><a href="http://google.com/mail"><i class="fa fa-envelope-o pr-2"></i>admin@ssafy.com</a></li>
+                        </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- .footer end -->
+
+        <!-- .subfooter start -->
+        <!-- ================ -->
+        <div class="subfooter">
+          <div class="container">
+            <div class="subfooter-inner">
+              <div class="row">
+                <div class="col-lg-4 text-lg-start">Copyright &copy; SSAFY. All rights reserved.</div>
+                    <div class="col-lg-4 my-3 my-lg-0">
+                    </div>
+                    <div class="col-lg-4 text-lg-end">
+                        <a class="link-dark text-decoration-none me-3" href="#!">박소희</a>
+                        <a class="link-dark text-decoration-none me-3" href="#!">이승현</a>
+                        <a class="link-dark text-decoration-none me-3" href="#!">정재현</a>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <!-- .subfooter end -->
+      </footer>
+      <!-- footer end -->
+        
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </body>
+</html>
