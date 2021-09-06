@@ -1,0 +1,108 @@
+# Back-End+DB 01. DB
+
+#1
+use world;
+
+#2
+select* from city;
+select* from country;
+select* from countrylanguage;
+
+#3
+select* 
+from country
+where code="KOR";
+
+#4
+select code, name, gnp, gnpold, gnp-gnpold gnp변동량 
+from country
+where gnp-gnpold >0
+order by gnp변동량;
+
+#5
+select distinct continent
+from country;
+
+#6
+select concat(name,"은 ",region,"에 속하며 인구는 ",population,"명이다.")
+from country
+where continent = "asia"
+order by concat(name,"은 ",region,"에 속하며 인구는 ",population,"명이다.");
+
+#7
+select name, Continent, gnp, population
+from country
+where population >= 100000 and IndepYear is null
+order by Population;
+
+#8
+select code, name, population
+from country
+where Population between 100000000 and 200000000
+limit 3;
+
+#9
+select code, name, indepyear
+from country
+where IndepYear in (800, 1810, 1811, 1901, 1901)
+order by IndepYear, code desc;
+
+#10
+select code, name, region
+from country
+where region like "%asia%" and instr(name, "o") = 2;
+
+#11
+select char_length("홍길동") 한글, char_length("hong") 영문
+from dual;
+
+#12
+select code, name, governmentform
+from country
+where governmentform like "%republic" and char_length(name) >= 10
+order by char_length(name)
+limit 10;
+
+#13
+select code, name
+from country
+where code like "a%"or"e%"or"i%"or"u&"
+order by name
+limit 2,3;
+
+#14
+SELECT concat( left(name,2), lpad("*", char_length(name)-4, "*") , right(name, 2) )
+FROM country;
+
+#15
+select replace(region, " ", "_") 지역들
+from country
+order by char_length(region) desc;
+
+#16
+select name, surfacearea, population, round(surfacearea/population, 3) "1인당 점유면적"
+from country
+where population >= 100000000
+order by round(surfacearea/population, 3);
+
+#17
+select now() 오늘, dayofyear(now()) "올해 지난 날", date_add(now(), interval 100 day) "100일 후"
+from dual;
+
+#18
+select name, continent, LifeExpectancy, case when LifeExpectancy>80 then "장수국가"
+    when LifeExpectancy>60 then "일반국가"
+    else "단명국가"
+end 구분
+from country
+where LifeExpectancy is not null and region like "%asia";
+
+#19
+select name, gnp, gnpold, case when gnpold is null then "신규"  else gnp-gnpold end "gnp 향상"
+from country
+order by name;
+
+#20
+select weekday("2020-05-05"), case when weekday("2020-05-05") in ("5", "6") then "불행" else "행복" end 행복여부
+from dual;
+
