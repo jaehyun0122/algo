@@ -5,8 +5,8 @@ public class 문제1 {
     public static void main(String[] args) {
         int[] str = new int[]{3,3,1,1,2,2,4,4,5,5};
 
-        for(int a:solution(str)){
-            System.out.print(a+" ");
+        for(int a:solution(str)) {
+            System.out.print(a + " ");
         }
     }
     private static ArrayList<Integer> solution(int[] str){

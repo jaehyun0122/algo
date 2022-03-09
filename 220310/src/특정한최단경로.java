@@ -5,10 +5,11 @@ import java.util.Scanner;
 
 public class 특정한최단경로 {
 
-    static class path implements Comparable<path>{
+    static class path implements Comparable<path> {
         int b;
         int c;
-        public path(int b, int c){
+
+        public path(int b, int c) {
             this.b = b;
             this.c = c;
         }
