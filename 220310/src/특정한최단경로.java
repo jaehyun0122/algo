@@ -6,8 +6,8 @@ import java.util.Scanner;
 public class 특정한최단경로 {
 
     static class path implements Comparable<path> {
-        int b;
-        int c;
+        int b;//목적지
+        int c;//가중치
 
         public path(int b, int c) {
             this.b = b;
