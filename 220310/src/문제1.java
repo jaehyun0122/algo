@@ -4,7 +4,8 @@ import java.util.Collections;
 public class 문제1 {
     public static void main(String[] args) {
         int[] str = new int[]{3,3,1,1,2,2,4,4,5,5};
-
+// 1번 학생 : 1234512345  2번학생 : 2122232425  3번학생 : 3311224455
+//
         for(int a:solution(str)) {
             System.out.print(a + " ");
         }
