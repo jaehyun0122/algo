@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f6f1a9d3-426d-441f-807b-e50baf2a5669" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/밀비급일.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/밀비급일.java" afterDir="false" />
+    <list default="true" id="346892e3-e8f4-4a4f-9dc2-88b47f03f4d8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/평범한배낭.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/평범한배낭.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -15,13 +22,14 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="26QRvHk0CTX9v0sBFlp7gTBqZOJ" />
+  <component name="ProjectId" id="26NXkYqjH1POMscLsaXakieVl40" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -29,34 +37,28 @@
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RunManager">
-    <configuration name="밀비급일" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="src.밀비급일" />
-      <module name="220315" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="src.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
+    <configuration name="평범한배낭" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="평범한배낭" />
+      <module name="220314" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.밀비급일" />
+        <item itemvalue="Application.평범한배낭" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="f6f1a9d3-426d-441f-807b-e50baf2a5669" name="Changes" comment="" />
-      <created>1647354143726</created>
+      <changelist id="346892e3-e8f4-4a4f-9dc2-88b47f03f4d8" name="Changes" comment="" />
+      <created>1647265162365</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1647354143726</updated>
-      <workItem from="1647354145041" duration="214000" />
+      <updated>1647265162365</updated>
+      <workItem from="1647265163622" duration="3253000" />
     </task>
     <servers />
   </component>

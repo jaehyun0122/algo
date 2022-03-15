@@ -13,7 +13,7 @@ public class 밀비급일 {
             char[] copy = new char[str.length()];
 
             for(int i=0; i<str.length(); i++) {
-                copy[(Math.abs(i-str.length()))-1] = str.charAt(i);
+                copy[(Math.abs(i - str.length())) - 1] = str.charAt(i);
             }
 
             for(char c : copy) {
