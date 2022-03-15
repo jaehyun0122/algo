@@ -1,2 +1,0 @@
-INDEX VERSION 1.131+C:\Users\multicampus\Desktop\github\알고리즘\.metadata\.plugins\org.eclipse.jdt.core
-1073076755.index
