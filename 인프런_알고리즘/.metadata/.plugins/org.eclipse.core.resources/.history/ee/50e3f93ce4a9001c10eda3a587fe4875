@@ -1,0 +1,15 @@
+import java.util.Scanner;
+
+public class 대소문자변환 {
+
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+		String str = sc.next();
+		
+		for(char a : str.toCharArray()) {
+			System.out.println(((int) a)-'a');
+		}
+	}
+
+}
