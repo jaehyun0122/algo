@@ -1,0 +1,25 @@
+import java.util.Scanner;
+
+public class 유효한팰린드롬 {
+
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+		String str = sc.nextLine().toUpperCase();
+		int front = 0;
+		int back = str.length()-1;
+		String ans = "YES";
+		while(back > front) {
+			if(Character.isAlphabetic(str.charAt(front))) {
+				if((str.charAt(front) != str.charAt(back))) {
+					ans = "NO";
+					break;
+				}
+			}
+			front += 1;
+			back -= 1;
+		}
+		System.out.println(ans);
+	}
+
+}

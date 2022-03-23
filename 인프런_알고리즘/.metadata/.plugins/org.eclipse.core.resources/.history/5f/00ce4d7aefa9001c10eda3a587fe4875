@@ -1,0 +1,23 @@
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Scanner;
+
+public class 단어뒤집기 {
+
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+		int T = sc.nextInt();
+		for(int tc=0; tc<T; tc++) {
+			String str = sc.next();
+			char[] arr = new char[str.length()];
+			
+			for(int i=0; i<str.length(); i++) {
+				arr[(Math.abs(i-str.length()))] = str.charAt(i);
+			}
+			System.out.print(arr.toString());
+			System.out.println();
+		}
+	}
+
+}
