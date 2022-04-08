@@ -25,10 +25,10 @@ public class 숫자카드210816 {
 		for(int i=0; i<m; i++) {
 			sol(arr2[i], arr, n, i);
 		}
+		//-10, -10, 2, 3, 3, 6, 7, 10, 10, 10
 		for(int a : ans) System.out.print(a+" ");
 	}
-	// 3 3 5 6 6 6 6 7 7 7 7 9
-	// 3 5 6 7
+
 	static int[] ans;
 	static void sol(int a, int[] arr, int n, int cnt) {
 		int start = 0;
@@ -38,8 +38,9 @@ public class 숫자카드210816 {
 			mid = (start+end)/2;
 			if(a == arr[mid]) {
 				for(int i=start; i<end; i++) {
-					if(a == arr[i]) ans[cnt]++;
+					if(a == arr[i]) ans[cnt]++; System.out.println("i"+i);
 				}
+				System.out.println("======");
 				break;
 			} else if(a > arr[mid]) {
 				start = mid+1;
