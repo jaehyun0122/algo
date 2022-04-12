@@ -3,11 +3,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class N과M15651 {
+public class N과M15652 {
 
 	static int n, m;
 	static int[] arr;
-	static StringBuilder sb;
+	static boolean[] visited;
 	
 	public static void main(String[] args) throws IOException {
 
@@ -15,31 +15,29 @@ public class N과M15651 {
 		StringTokenizer st;
 		
 		st = new StringTokenizer(br.readLine(), " ");
-		sb = new StringBuilder();
 		
 		n = Integer.parseInt(st.nextToken());
 		m = Integer.parseInt(st.nextToken());
 		arr = new int[m];
-		sol(0);
-		System.out.println(sb);
-		N과M15651 a = new N과M15651();
+		visited = new boolean[n+1];
+		sol(0, 1);
 	}
 	
-	static void sol(int cnt) {
+	static void sol(int cnt, int start) {
 		if(cnt == m) {
 			for(int i=0; i<m; i++) {
-				sb.append(arr[i]).append(" ");
+				System.out.print(arr[i]+" ");
 			}
-			sb.append("\n");
+			System.out.println();
 			return;
 		}
 		
-		for(int i=1; i<=n; i++) {
+		for(int i=start; i<=n; i++) {
 			arr[cnt] = i;
-			sol(cnt+1);
+//			sol(cnt+1, i+1);
+			sol(cnt+1, i);
 		}
 		
 	}
-	
 
 }
