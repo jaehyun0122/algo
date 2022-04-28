@@ -26,6 +26,7 @@ public class 달팽이1913 {
 				for(int j=0; j<cnt; j++) {
 					if(i == 1) y++;
 					if(i == 2) x++;
+					
 					if(i == 3) y--;
 					if(i == 4) x--;
  					arr[x][y] = num;
