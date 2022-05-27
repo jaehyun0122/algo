@@ -22,6 +22,7 @@ public class 문자열집합14425 {
 			if(map.get(br.readLine()) != null) cnt++;
 		}
 		
+		
 		System.out.println(cnt);
 	}
 
